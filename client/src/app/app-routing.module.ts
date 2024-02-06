@@ -15,6 +15,10 @@ const routes: Routes = [
         loadComponent: () => import('./register/register.component').then((m) => m.RegisterComponent),
     },
     {
+        path: 'note/:id',
+        loadComponent: () => import('./note/note.component').then((m) => m.NoteComponent),
+    },
+    {
         path: '**',
         loadComponent: () => import('./note-table/note-table.component').then((m) => m.NoteTableComponent),
     },

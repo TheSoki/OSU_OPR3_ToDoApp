@@ -1,0 +1,16 @@
+.note-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    min-width: 768px;
+
+    @media (max-width: 768px) {
+        margin-top: 0;
+        flex-direction: column;
+        min-width: 100%;
+    }
+}
+
+.note-container-children {
+    width: 50%;
+}

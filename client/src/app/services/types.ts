@@ -3,6 +3,12 @@ export type Note = {
     content: string
 }
 
+export type Comment = {
+    id: number
+    content: string
+    noteId: number
+}
+
 export enum NotificationStatus {
     Success = 'Success',
     Error = 'Error',

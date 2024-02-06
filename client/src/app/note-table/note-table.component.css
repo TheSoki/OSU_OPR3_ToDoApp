@@ -2,3 +2,7 @@ table {
     min-width: 1200px;
     margin-bottom: 40px;
 }
+
+:hover .td-link {
+    cursor: pointer;
+}

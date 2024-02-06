@@ -3,12 +3,12 @@
 <table mat-table [dataSource]="items" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>id</th>
-        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        <td mat-cell *matCellDef="let element" (click)="onRowClick(element)" class="td-link">{{ element.id }}</td>
     </ng-container>
 
     <ng-container matColumnDef="content">
         <th mat-header-cell *matHeaderCellDef>content</th>
-        <td mat-cell *matCellDef="let element">{{ element.content }}</td>
+        <td mat-cell *matCellDef="let element" (click)="onRowClick(element)" class="td-link">{{ element.content }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

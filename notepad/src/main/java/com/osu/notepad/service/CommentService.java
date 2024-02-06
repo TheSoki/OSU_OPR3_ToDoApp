@@ -34,7 +34,7 @@ public class CommentService {
 
     public Comment createComment(Long noteId, CreateCommentDto commentDto) throws Exception {
         Comment comment = new Comment();
-        commentDto.setContent(commentDto.getContent());
+        comment.setContent(commentDto.getContent());
         comment.setNote(noteRepository.findById(noteId).orElseThrow(() -> new Exception("Note not found")));
         return commentRepository.save(comment);
     }

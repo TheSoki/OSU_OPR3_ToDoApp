@@ -3,6 +3,7 @@ import { Note } from '../services/types'
 import { MatTableModule } from '@angular/material/table'
 import { Subscription } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'app-note-table',
@@ -15,7 +16,7 @@ export class NoteTableComponent {
     items: Note[] = []
     private subscription = new Subscription()
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private router: Router) {}
 
     fetchInitialData() {
         this.subscription.add(
@@ -40,4 +41,8 @@ export class NoteTableComponent {
     }
 
     displayedColumns: string[] = ['id', 'content']
+
+    onRowClick(note: Note) {
+        this.router.navigate(['/note', note.id])
+    }
 }

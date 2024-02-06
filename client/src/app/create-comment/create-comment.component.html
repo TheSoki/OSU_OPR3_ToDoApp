@@ -1,0 +1,28 @@
+<form class="create-comment-form" [formGroup]="createCommentFormGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field class="create-comment-full-width">
+        <mat-label>Content</mat-label>
+        <input matInput placeholder="John Doe" formControlName="content" type="text" id="content" />
+        <mat-error
+            *ngIf="
+                createCommentFormGroup.controls['content'].invalid &&
+                createCommentFormGroup.controls['content'].touched &&
+                createCommentFormGroup.controls['content'].errors?.['required']
+            "
+        >
+            Content is required.
+        </mat-error>
+        <mat-error
+            *ngIf="
+                createCommentFormGroup.controls['content'].invalid &&
+                createCommentFormGroup.controls['content'].touched &&
+                createCommentFormGroup.controls['content'].errors?.['minlength']
+            "
+        >
+            Content must be at least 3 characters long.
+        </mat-error>
+    </mat-form-field>
+
+    <button mat-stroked-button color="warn" type="submit" [disabled]="createCommentFormGroup.invalid || isSubmitting">
+        Submit
+    </button>
+</form>

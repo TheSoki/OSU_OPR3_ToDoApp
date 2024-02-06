@@ -1,0 +1,20 @@
+<div *ngIf="!note">Note not found or you don't have permission to view it.</div>
+
+<div *ngIf="note" class="note-container">
+    <div class="note-container-children">
+        <h2>ID: {{ note.id }}</h2>
+        <h3>Content: {{ note.content }}</h3>
+    </div>
+
+    <div class="note-container-children">
+        <h2>Comments</h2>
+
+        <li *ngFor="let comment of comments; index as i; first as isFirst">
+            {{ comment.content }}
+        </li>
+
+        <div *ngIf="comments.length === 0">No comments</div>
+
+        <app-create-comment [noteId]="note.id"></app-create-comment>
+    </div>
+</div>
