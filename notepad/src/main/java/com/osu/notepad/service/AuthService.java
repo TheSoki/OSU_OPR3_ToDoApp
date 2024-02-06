@@ -2,8 +2,8 @@ package com.osu.notepad.service;
 
 import com.osu.notepad.dto.AuthDto;
 import com.osu.notepad.model.User;
-import com.osu.notepad.repository.UserRepository;
 import com.osu.notepad.repository.NoteRepository;
+import com.osu.notepad.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

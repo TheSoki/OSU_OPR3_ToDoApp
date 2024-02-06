@@ -3,10 +3,8 @@ package com.osu.notepad.service;
 import com.osu.notepad.dto.CreateNoteDto;
 import com.osu.notepad.dto.NoteDto;
 import com.osu.notepad.model.Note;
-import com.osu.notepad.model.User;
-import com.osu.notepad.repository.CommentRepository;
-import com.osu.notepad.repository.UserRepository;
 import com.osu.notepad.repository.NoteRepository;
+import com.osu.notepad.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +37,7 @@ public class NoteService {
         return noteRepository.findById(id).orElseThrow(() -> new Exception("Note not found"));
     }
 
-    public Note updateNote(NoteDto noteDto)  throws Exception {
+    public Note updateNote(NoteDto noteDto) throws Exception {
         Note note = new Note();
         note.setId(noteDto.getId());
         note.setContent(noteDto.getContent());
@@ -51,7 +49,7 @@ public class NoteService {
         noteRepository.deleteById(id);
     }
 
-    public boolean validateUserNote (Long userId, Long noteId) {
+    public boolean validateUserNote(Long userId, Long noteId) {
         Note note = noteRepository.findById(noteId).orElse(null);
         if (note == null) {
             return false;

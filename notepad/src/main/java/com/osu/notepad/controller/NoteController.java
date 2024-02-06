@@ -98,7 +98,7 @@ public class NoteController {
         Long userId;
         try {
             userId = JwtUtil.extractId(token);
-            if (!noteService.validateUserNote(userId,id)) {
+            if (!noteService.validateUserNote(userId, id)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
         } catch (Exception e) {

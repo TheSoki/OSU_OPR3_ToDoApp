@@ -1,9 +1,9 @@
 package com.osu.notepad.seed;
 
-import com.osu.notepad.model.User;
 import com.osu.notepad.model.Note;
-import com.osu.notepad.repository.UserRepository;
+import com.osu.notepad.model.User;
 import com.osu.notepad.repository.NoteRepository;
+import com.osu.notepad.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

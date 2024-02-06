@@ -1,10 +1,7 @@
 package com.osu.notepad.controller;
 
 import com.osu.notepad.dto.CreateCommentDto;
-import com.osu.notepad.dto.CreateNoteDto;
-import com.osu.notepad.dto.NoteDto;
 import com.osu.notepad.model.Comment;
-import com.osu.notepad.model.Note;
 import com.osu.notepad.service.CommentService;
 import com.osu.notepad.service.NoteService;
 import com.osu.notepad.util.JwtUtil;
