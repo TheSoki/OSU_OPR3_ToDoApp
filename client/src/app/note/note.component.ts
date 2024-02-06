@@ -71,18 +71,15 @@ export class NoteComponent {
                 headers: {
                     Authorization: `${localStorage.getItem('token')}`,
                 },
-                responseType: 'text',
             })
             .subscribe({
                 next: (response) => {
-                    const note = JSON.parse(response) as unknown as Note
-
                     this.notificationService.show({
                         message: 'Note updated successfuly',
                         type: NotificationStatus.Success,
                     })
 
-                    this.router.navigate(['/notes'])
+                    this.router.navigate(['/'])
                 },
                 error: (error) => {
                     this.notificationService.show({
