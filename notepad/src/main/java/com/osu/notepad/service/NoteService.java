@@ -51,7 +51,7 @@ public class NoteService {
 
     public void deleteNote(Long id) {
         Note note = noteRepository.findById(id).orElseThrow(() -> new RuntimeException("Note not found"));
-        List< Comment > comments = commentRepository.findByNote(note);
+        List<Comment> comments = commentRepository.findByNote(note);
         commentRepository.deleteAll(comments);
         noteRepository.deleteById(id);
     }
