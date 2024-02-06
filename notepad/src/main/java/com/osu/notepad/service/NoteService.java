@@ -2,7 +2,9 @@ package com.osu.notepad.service;
 
 import com.osu.notepad.dto.CreateNoteDto;
 import com.osu.notepad.dto.NoteDto;
+import com.osu.notepad.model.Comment;
 import com.osu.notepad.model.Note;
+import com.osu.notepad.repository.CommentRepository;
 import com.osu.notepad.repository.NoteRepository;
 import com.osu.notepad.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,13 @@ public class NoteService {
 
     private final NoteRepository noteRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     @Autowired
-    public NoteService(NoteRepository noteRepository, UserRepository userRepository) {
+    public NoteService(NoteRepository noteRepository, UserRepository userRepository, CommentRepository commentRepository) {
         this.noteRepository = noteRepository;
         this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
     }
 
     public List<Note> getAllNotes(Long userId) throws Exception {
@@ -37,15 +41,18 @@ public class NoteService {
         return noteRepository.findById(id).orElseThrow(() -> new Exception("Note not found"));
     }
 
-    public Note updateNote(NoteDto noteDto) throws Exception {
+    public Note updateNote(NoteDto noteDto, Long userId) throws Exception {
         Note note = new Note();
         note.setId(noteDto.getId());
         note.setContent(noteDto.getContent());
-        // note.setUser(userRepository.findById(noteDto.getUserId()).orElseThrow(() -> new Exception("User not found")));
+        note.setUser(userRepository.findById(userId).orElseThrow(() -> new Exception("User not found")));
         return noteRepository.save(note);
     }
 
     public void deleteNote(Long id) {
+        Note note = noteRepository.findById(id).orElseThrow(() -> new RuntimeException("Note not found"));
+        List< Comment > comments = commentRepository.findByNote(note);
+        commentRepository.deleteAll(comments);
         noteRepository.deleteById(id);
     }
 

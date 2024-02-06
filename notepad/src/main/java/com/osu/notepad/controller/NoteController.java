@@ -87,7 +87,7 @@ public class NoteController {
         }
 
         try {
-            return ResponseEntity.ok(noteService.updateNote(noteDto));
+            return ResponseEntity.ok(noteService.updateNote(noteDto,userId));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -107,7 +107,7 @@ public class NoteController {
 
         try {
             noteService.deleteNote(id);
-            return ResponseEntity.accepted().build();
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

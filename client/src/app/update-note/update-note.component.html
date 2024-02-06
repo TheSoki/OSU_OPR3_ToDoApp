@@ -1,0 +1,32 @@
+<div *ngIf="!note">Note not found or you don't have permission to view it.</div>
+
+<div *ngIf="note" class="note-container">
+    <form class="update-note-form" [formGroup]="updateNoteFormGroup" (ngSubmit)="onSubmit()">
+        <mat-form-field class="update-note-full-width">
+            <mat-label>Content</mat-label>
+            <input matInput placeholder="John Doe" formControlName="content" type="text" id="content" />
+            <mat-error
+                *ngIf="
+                    updateNoteFormGroup.controls['content'].invalid &&
+                    updateNoteFormGroup.controls['content'].touched &&
+                    updateNoteFormGroup.controls['content'].errors?.['required']
+                "
+            >
+                Content is required.
+            </mat-error>
+            <mat-error
+                *ngIf="
+                    updateNoteFormGroup.controls['content'].invalid &&
+                    updateNoteFormGroup.controls['content'].touched &&
+                    updateNoteFormGroup.controls['content'].errors?.['minlength']
+                "
+            >
+                Content must be at least 3 characters long.
+            </mat-error>
+        </mat-form-field>
+
+        <button mat-stroked-button color="warn" type="submit" [disabled]="updateNoteFormGroup.invalid || isSubmitting">
+            Update
+        </button>
+    </form>
+</div>

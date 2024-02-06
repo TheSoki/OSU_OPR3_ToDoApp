@@ -2,6 +2,9 @@
 
 <div *ngIf="note" class="note-container">
     <div class="note-container-children">
+        <button mat-stroked-button color="primary" type="button" (click)="updateNote()">Update</button>
+        <button mat-stroked-button color="warn" type="button" (click)="deleteNote()">Delete</button>
+
         <h2>ID: {{ note.id }}</h2>
         <h3>Content: {{ note.content }}</h3>
     </div>

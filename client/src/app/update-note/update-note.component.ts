@@ -4,25 +4,29 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { Comment, Note, NotificationStatus } from '../services/types'
 import { NgFor, NgIf } from '@angular/common'
-import { CreateCommentComponent } from '../create-comment/create-comment.component'
 import { NotificationService } from '../services/notification.service'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
+import { CommonModule } from '@angular/common'
 
 @Component({
-    selector: 'app-note',
-    templateUrl: './note.component.html',
-    styleUrls: ['./note.component.css'],
+    selector: 'app-update-note',
+    templateUrl: './update-note.component.html',
+    styleUrls: ['./update-note.component.css'],
     standalone: true,
-    imports: [NgIf, NgFor, CreateCommentComponent, MatButtonModule],
+    imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, CommonModule, NgIf, NgFor],
 })
-export class NoteComponent {
+export class UpdateNoteComponent {
     note: Note | null = null
     comments: Comment[] = []
     private subscription = new Subscription()
 
     constructor(
-        private http: HttpClient,
         route: ActivatedRoute,
+        private http: HttpClient,
         private router: Router,
         private notificationService: NotificationService
     ) {
@@ -41,6 +45,7 @@ export class NoteComponent {
                 })
                 .subscribe((data) => {
                     this.note = data
+                    this.updateNoteFormGroup.setValue({ content: data.content })
                 })
         )
 
@@ -61,30 +66,44 @@ export class NoteComponent {
         this.subscription.unsubscribe()
     }
 
-    updateNote = () => {
-        this.router.navigate([`/note/${this.note?.id}/update`])
-    }
+    isSubmitting = false
 
-    deleteNote = () => {
+    updateNoteFormGroup: FormGroup = new FormGroup({
+        content: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    })
+
+    onSubmit = async () => {
+        this.isSubmitting = true
+
         this.http
-            .delete(`http://localhost:8080/api/notes/${this.note?.id}`, {
-                headers: {
-                    Authorization: `${localStorage.getItem('token')}`,
+            .put(
+                `http://localhost:8080/api/notes/${this.note?.id}`,
+                {
+                    content: String(this.updateNoteFormGroup.value.content),
                 },
-                responseType: 'text',
-            })
+                {
+                    headers: {
+                        Authorization: `${localStorage.getItem('token')}`,
+                    },
+                    responseType: 'text',
+                }
+            )
             .subscribe({
                 next: (response) => {
                     const note = JSON.parse(response) as unknown as Note
+
+                    this.isSubmitting = false
 
                     this.notificationService.show({
                         message: 'Note updated successfuly',
                         type: NotificationStatus.Success,
                     })
 
-                    this.router.navigate(['/notes'])
+                    this.router.navigate(['/'])
                 },
                 error: (error) => {
+                    this.isSubmitting = false
+
                     this.notificationService.show({
                         message: 'Note update failed',
                         type: NotificationStatus.Error,

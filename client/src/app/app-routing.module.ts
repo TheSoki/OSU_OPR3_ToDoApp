@@ -19,6 +19,10 @@ const routes: Routes = [
         loadComponent: () => import('./note/note.component').then((m) => m.NoteComponent),
     },
     {
+        path: 'note/:id/update',
+        loadComponent: () => import('./update-note/update-note.component').then((m) => m.UpdateNoteComponent),
+    },
+    {
         path: '**',
         loadComponent: () => import('./note-table/note-table.component').then((m) => m.NoteTableComponent),
     },
