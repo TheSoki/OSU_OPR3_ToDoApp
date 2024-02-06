@@ -1,7 +1,6 @@
 import { Component } from '@angular/core'
 import { Note, NotificationStatus } from '../services/types'
 import { Router } from '@angular/router'
-import { NotesService } from '../services/notes.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -9,7 +8,6 @@ import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { CommonModule } from '@angular/common'
 import { NotificationService } from '../services/notification.service'
-import { Subscription } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 
 @Component({
@@ -20,27 +18,7 @@ import { HttpClient } from '@angular/common/http'
     imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, CommonModule],
 })
 export class CreateNoteComponent {
-    items: Note[] = this.notesService.getInitialData()
-    private subscription = new Subscription()
-
-    constructor(
-        private http: HttpClient,
-        private router: Router,
-        private notesService: NotesService,
-        private notificationService: NotificationService
-    ) {}
-
-    ngOnInit() {
-        this.subscription.add(
-            this.notesService.notes$.subscribe((data) => {
-                this.items = data
-            })
-        )
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe()
-    }
+    constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService) {}
 
     isSubmitting = false
 
@@ -67,8 +45,6 @@ export class CreateNoteComponent {
             .subscribe({
                 next: (response) => {
                     const note = JSON.parse(response) as unknown as Note
-
-                    this.notesService.addNote(note)
 
                     this.isSubmitting = false
 

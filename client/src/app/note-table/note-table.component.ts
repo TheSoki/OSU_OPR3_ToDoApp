@@ -1,8 +1,8 @@
 import { Component } from '@angular/core'
 import { Note } from '../services/types'
-import { NotesService } from '../services/notes.service'
 import { MatTableModule } from '@angular/material/table'
 import { Subscription } from 'rxjs'
+import { HttpClient } from '@angular/common/http'
 
 @Component({
     selector: 'app-note-table',
@@ -12,17 +12,27 @@ import { Subscription } from 'rxjs'
     imports: [MatTableModule],
 })
 export class NoteTableComponent {
-    items: Note[] = this.notesService.getInitialData()
+    items: Note[] = []
     private subscription = new Subscription()
 
-    constructor(private notesService: NotesService) {}
+    constructor(private http: HttpClient) {}
+
+    fetchInitialData() {
+        this.subscription.add(
+            this.http
+                .get<Note[]>('http://localhost:8080/api/notes', {
+                    headers: {
+                        Authorization: `${localStorage.getItem('token')}`,
+                    },
+                })
+                .subscribe((data) => {
+                    this.items = data
+                })
+        )
+    }
 
     ngOnInit() {
-        this.subscription.add(
-            this.notesService.notes$.subscribe((data) => {
-                this.items = data
-            })
-        )
+        this.fetchInitialData()
     }
 
     ngOnDestroy() {
