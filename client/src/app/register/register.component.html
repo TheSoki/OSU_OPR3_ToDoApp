@@ -1,0 +1,53 @@
+<h2 class="register-title">Register</h2>
+
+<form class="register-form" [formGroup]="registerFormGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field class="register-full-width">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="John Doe" formControlName="username" type="text" id="username" />
+        <mat-error
+            *ngIf="
+                registerFormGroup.controls['username'].invalid &&
+                registerFormGroup.controls['username'].touched &&
+                registerFormGroup.controls['username'].errors?.['required']
+            "
+        >
+            Username is required.
+        </mat-error>
+        <mat-error
+            *ngIf="
+                registerFormGroup.controls['username'].invalid &&
+                registerFormGroup.controls['username'].touched &&
+                registerFormGroup.controls['username'].errors?.['minlength']
+            "
+        >
+            Usernmae must be at least 3 characters long.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="register-full-width">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="•••••••" formControlName="password" type="password" id="password" />
+        <mat-error
+            *ngIf="
+                registerFormGroup.controls['password'].invalid &&
+                registerFormGroup.controls['password'].touched &&
+                registerFormGroup.controls['password'].errors?.['required']
+            "
+        >
+            Password is required.
+        </mat-error>
+        <mat-error
+            *ngIf="
+                registerFormGroup.controls['password'].invalid &&
+                registerFormGroup.controls['password'].touched &&
+                registerFormGroup.controls['password'].errors?.['minlength']
+            "
+        >
+            Password must be at least 3 characters long.
+        </mat-error>
+    </mat-form-field>
+
+    <button mat-stroked-button color="warn" type="submit" [disabled]="registerFormGroup.invalid || isSubmitting">
+        Submit
+    </button>
+</form>

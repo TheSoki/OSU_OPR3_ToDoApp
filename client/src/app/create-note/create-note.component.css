@@ -1,0 +1,13 @@
+.create-note-title {
+    margin-top: 50px;
+}
+
+.create-note-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.create-note-full-width {
+    width: 100%;
+}

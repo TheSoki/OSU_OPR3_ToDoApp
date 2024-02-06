@@ -1,0 +1,53 @@
+<h2 class="login-title">Login</h2>
+
+<form class="login-form" [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field class="login-full-width">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="John Doe" formControlName="username" type="text" id="username" />
+        <mat-error
+            *ngIf="
+                loginFormGroup.controls['username'].invalid &&
+                loginFormGroup.controls['username'].touched &&
+                loginFormGroup.controls['username'].errors?.['required']
+            "
+        >
+            Username is required.
+        </mat-error>
+        <mat-error
+            *ngIf="
+                loginFormGroup.controls['username'].invalid &&
+                loginFormGroup.controls['username'].touched &&
+                loginFormGroup.controls['username'].errors?.['minlength']
+            "
+        >
+            Usernmae must be at least 3 characters long.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="login-full-width">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="•••••••" formControlName="password" type="password" id="password" />
+        <mat-error
+            *ngIf="
+                loginFormGroup.controls['password'].invalid &&
+                loginFormGroup.controls['password'].touched &&
+                loginFormGroup.controls['password'].errors?.['required']
+            "
+        >
+            Password is required.
+        </mat-error>
+        <mat-error
+            *ngIf="
+                loginFormGroup.controls['password'].invalid &&
+                loginFormGroup.controls['password'].touched &&
+                loginFormGroup.controls['password'].errors?.['minlength']
+            "
+        >
+            Password must be at least 3 characters long.
+        </mat-error>
+    </mat-form-field>
+
+    <button mat-stroked-button color="warn" type="submit" [disabled]="loginFormGroup.invalid || isSubmitting">
+        Submit
+    </button>
+</form>

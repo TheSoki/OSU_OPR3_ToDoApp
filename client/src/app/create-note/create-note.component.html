@@ -1,0 +1,30 @@
+<h2 class="create-note-title">Create Note</h2>
+
+<form class="create-note-form" [formGroup]="createNoteFormGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field class="create-note-full-width">
+        <mat-label>Content</mat-label>
+        <input matInput placeholder="John Doe" formControlName="content" type="text" id="content" />
+        <mat-error
+            *ngIf="
+                createNoteFormGroup.controls['content'].invalid &&
+                createNoteFormGroup.controls['content'].touched &&
+                createNoteFormGroup.controls['content'].errors?.['required']
+            "
+        >
+            Content is required.
+        </mat-error>
+        <mat-error
+            *ngIf="
+                createNoteFormGroup.controls['content'].invalid &&
+                createNoteFormGroup.controls['content'].touched &&
+                createNoteFormGroup.controls['content'].errors?.['minlength']
+            "
+        >
+            Content must be at least 3 characters long.
+        </mat-error>
+    </mat-form-field>
+
+    <button mat-stroked-button color="warn" type="submit" [disabled]="createNoteFormGroup.invalid || isSubmitting">
+        Submit
+    </button>
+</form>
