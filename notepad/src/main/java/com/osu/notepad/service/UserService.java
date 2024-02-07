@@ -1,6 +1,7 @@
 package com.osu.notepad.service;
 
-import com.osu.notepad.dto.UserDto;
+import com.osu.notepad.dto.CreateUserDto;
+import com.osu.notepad.dto.UpdateUserDto;
 import com.osu.notepad.model.User;
 import com.osu.notepad.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User createUser(UserDto userDto) {
+    public User createUser(CreateUserDto userDto) {
         User user = new User();
         user.setId(userDto.getId());
         user.setUsername(userDto.getUsername());
@@ -34,7 +35,7 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
     }
 
-    public User updateUser(UserDto userDto) {
+    public User updateUser(UpdateUserDto userDto) {
         User user = new User();
         userDto.setId(userDto.getId());
         user.setUsername(userDto.getUsername());

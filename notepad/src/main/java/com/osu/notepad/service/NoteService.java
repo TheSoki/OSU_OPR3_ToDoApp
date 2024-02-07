@@ -1,7 +1,7 @@
 package com.osu.notepad.service;
 
 import com.osu.notepad.dto.CreateNoteDto;
-import com.osu.notepad.dto.NoteDto;
+import com.osu.notepad.dto.UpdateNoteDto;
 import com.osu.notepad.model.Comment;
 import com.osu.notepad.model.Note;
 import com.osu.notepad.repository.CommentRepository;
@@ -41,7 +41,7 @@ public class NoteService {
         return noteRepository.findById(id).orElseThrow(() -> new Exception("Note not found"));
     }
 
-    public Note updateNote(NoteDto noteDto, Long userId) throws Exception {
+    public Note updateNote(UpdateNoteDto noteDto, Long userId) throws Exception {
         Note note = new Note();
         note.setId(noteDto.getId());
         note.setContent(noteDto.getContent());

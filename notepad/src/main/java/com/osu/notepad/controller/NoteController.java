@@ -1,7 +1,7 @@
 package com.osu.notepad.controller;
 
 import com.osu.notepad.dto.CreateNoteDto;
-import com.osu.notepad.dto.NoteDto;
+import com.osu.notepad.dto.UpdateNoteDto;
 import com.osu.notepad.model.Note;
 import com.osu.notepad.service.NoteService;
 import com.osu.notepad.util.JwtUtil;
@@ -73,7 +73,7 @@ public class NoteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Note> updateNote(@RequestHeader("Authorization") String token, @PathVariable Long id, @RequestBody NoteDto noteDto) {
+    public ResponseEntity<Note> updateNote(@RequestHeader("Authorization") String token, @PathVariable Long id, @RequestBody UpdateNoteDto noteDto) {
         noteDto.setId(id);
 
         Long userId;

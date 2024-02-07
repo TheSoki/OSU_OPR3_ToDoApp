@@ -11,10 +11,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentDto {
+public class UpdateUserDto {
     private Long id;
 
     @NotEmpty
-    @Size(min = 3, message = "content should have at least 3 characters")
-    private String content;
+    @Size(min = 3, message = "username should have at least 3 characters")
+    private String username;
+
+    @NotEmpty
+    @Size(min = 3, message = "password should have at least 3 characters")
+    private String password;
 }
